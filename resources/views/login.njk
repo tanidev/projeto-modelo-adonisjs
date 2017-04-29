@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projeto Modelo - Login</title>
+  <!-- Bootstrap -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="col-md-12">
+      <div class="modal-dialog" style="margin-bottom:0">
+          <div class="modal-content">
+              <div class="panel-heading">
+                  <h1 class="panel-title">Projeto Modelo em AdonisJs - Tani</h1>
+              </div>
+              <div class="panel-body">
+                  {% include 'template/messages' %}
+                  <form role="form" action="/login" method="post">
+                    {{ csrfField }}
+                      <fieldset>
+                          <div class="form-group">
+                              <input class="form-control" placeholder="E-mail" name="login" type="email" autofocus="" required>
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                          </div>
+                          <!-- Change this to a button or input when using this as a form -->
+                          <button type="submit" class="btn btn-sm btn-success">
+                            <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+                            Entrar no sistema
+                          </button>
+                          <a href="/signup" class="btn btn-sm btn-primary">
+                            <span class="glyphicon glyphicon-user"></span>
+                            Criar uma conta
+                          </a>
+                      </fieldset>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</html>

@@ -1,0 +1,43 @@
+{% extends 'template/master' %}
+
+{% block head %}
+    <title>Projeto Modelo - Visualizando contato</title>
+{% endblock %}
+
+{% block content %}
+
+<body>
+  {% if contato %}
+    <h1>Contato: {{contato.nome}}</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        <h3 class="panel-title">Informações do contato</h3>
+        </div>
+        <div class="panel-body">
+        <p><strong>E-mail:</strong> {{contato.email}}</p>
+        <p><strong>Data de aniversário:</strong> {{contato.aniversario | formatDate('DD/MM/YYYY')}}</p>
+        <p><strong>Telefone fixo:</strong> {{contato.telefonefixo}}</p>
+        <p><strong>Telefone celular:</strong> {{contato.telefonecelular}}</p>
+        <p><strong>Telefone comercial:</strong> {{contato.telefonecomercial}}</p>
+        <hr/>
+        <p><strong>Data de cadastro:</strong> {{contato.datacadastro | formatDate('DD/MM/YYYY HH:mm')}}</p>
+        </div>
+    </div>
+  {% else %}
+    <h1>Usuario não encontrado!</h1>
+  {% endif %}
+  <form action="/contatos/{{contato.id}}" method="DELETE">
+    {{ csrfField }}
+    <input type="hidden" name="_method" value="DELETE">
+    <a href="/" class="btn btn-sm btn-primary">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        Voltar para contatos
+    </a>
+    <button type="submit" href="" class="btn btn-sm btn-danger">
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        Excluir
+    </button>
+  </form
+</body>
+
+{% endblock %}

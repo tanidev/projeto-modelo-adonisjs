@@ -1,0 +1,31 @@
+{% if old('success', success) %}
+  <div class="alert alert-success">
+    <strong>Sucesso!</strong>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><br/>
+    {{old('success', success)}}
+  </div>
+{% endif %}
+
+{% if old('info', info) %}
+  <div class="alert alert-info">
+    <strong>Informação: </strong>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><br/>
+    {{old('info', info)}}
+  </div>
+{% endif %}
+
+{% if old('warning', warning) %}
+  <div class="alert alert-warning">
+    <strong>Atenção!</strong>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><br/>
+    {{old('warning', warning)}}
+  </div>
+{% endif %}
+
+{% if old('error', error) %}
+  <div class="alert alert-danger">
+    <strong>Erro geral!</strong>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><br/>
+    {{old('error', error)}}
+  </div>
+{% endif %}

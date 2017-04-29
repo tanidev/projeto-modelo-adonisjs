@@ -1,0 +1,108 @@
+{% extends 'template/master' %}
+
+{% block head %}
+    <title>Projeto Modelo - Criando contato</title>
+{% endblock %}
+
+{% block content %}
+
+<body>
+
+  <h1><center>{% if contato %}Atualizar contato{% else %}Criar novo contato{% endif %}<center></h1>
+  <hr/>
+  <form class="form-horizontal" 
+    action="{% if contato %}/contatos/{{contato.id}}{% else %}/contatos{% endif %}" 
+    method="{% if contato %}PUT{% else %}POST{% endif %}">
+    {{ csrfField }}
+    {% if contato %}
+      <input type="hidden" name="_method" value="PUT">
+    {% endif %}
+    <div class="form-group {% if old('errors.nome') %} has-error {% endif %}">
+      <label for="nome" class="control-label col-sm-2">Nome</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="nome" name="nome"
+          placeholder="Nome do contato" value="{{ old('nome') or contato.nome}}" autofocus required>
+          {% if old('errors.nome') %}
+            <span class="help-block">{{old('errors.nome')}}</span>
+          {% endif %}
+      </div>
+    </div>
+    <div class="form-group {% if old('errors.email') %} has-error {% endif %}">
+      <label for="email" class="control-label col-sm-2">E-mail</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="email" name="email"
+          placeholder="examplo@exemplo.com" value="{{ old('email') or contato.email }}" required>
+          {% if old('errors.email') %}
+            <span class="help-block">{{old('errors.email')}}</span>
+          {% endif %}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="aniversario" class="control-label col-sm-2">Data de aniversário</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control aniversario" id="aniversario" name="aniversario"
+          placeholder="dd/mm/aaaa" value="
+            {% if contato %}
+              {{old('aniversario') or contato.aniversario | formatDate('DD/MM/YYYY')}}
+            {% else %}
+              {{old('aniversario')}}
+            {% endif %}" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="telefonefixo" class="control-label col-sm-2">Telefone fixo</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control telefonefixo" id="telefonefixo" name="telefonefixo"
+          placeholder="(00) 2222-2222" value="{{old('telefonefixo') or contato.telefonefixo}}" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="telefonecelular" class="control-label col-sm-2">Telefone celular</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control telefonecelular" id="telefonecelular" name="telefonecelular"
+          placeholder="(00) 9999-9999 ou (00) 99999-9999"  value="{{old('telefonecelular') or contato.telefonecelular}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="telefonecomercial" class="control-label col-sm-2">Telefone comercial</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control telefonecomercial" id="telefonecomercial"
+          name="telefonecomercial" placeholder="(00) 9999-9999 ou (00) 99999-9999"
+          value="{{old('telefonecomercial') or contato.telefonecomercial}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="control-label col-sm-2"></div>
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-success">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          {% if contato %}Atualizar contato{% else %}Criar contato{% endif %}</button>
+        <a href="/" class="btn btn-danger">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          Cancelar</a>
+      </div>
+    </div>
+  </form>
+</body>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="/js/jquery.mask.min.js"></script>
+  <script>
+    $(function() {
+      var SPMaskBehavior = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+      },
+      spOptions = {
+        onKeyPress: function(val, e, field, options) {
+            field.mask(SPMaskBehavior.apply({}, arguments), options);
+          }
+      };
+      $('.aniversario').mask('00/00/0000');
+      $('.telefonefixo').mask('(00) 0000-0000');
+      $('.telefonecelular').mask(SPMaskBehavior, spOptions);
+      $('.telefonecomercial').mask(SPMaskBehavior, spOptions);
+    });
+  </script>
+{% endblock %}
