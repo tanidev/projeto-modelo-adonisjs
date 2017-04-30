@@ -17,8 +17,8 @@
 
 const Route = use('Route')
 
-Route.on('/login').render('login')
-Route.post('login', 'LoginController.login')
+Route.get('/login', 'LoginController.login')
+    .post('/login', 'LoginController.signin')
 
 Route.on('/signup').render('signup')
 Route.post('signup', 'LoginController.signup')

@@ -30,7 +30,17 @@ class LoginController {
         response.redirect('/login')
     }
 
-    * login(request, response) {
+    * login (request, response) {
+
+        if(request.currentUser) {
+            response.redirect('/')
+        }
+
+        yield response.sendView('login')
+
+    }
+
+    * signin(request, response) {
 
         const login = request.input('login')
         const senha = request.input('password')
