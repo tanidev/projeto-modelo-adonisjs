@@ -131,7 +131,8 @@ class ContatoController {
 
         let contatosFound = yield Contato
             .query()
-            .whereRaw('nome ilike ? OR telefonecelular ilike ?', [`%${filter}%`, `%${filter}%`])
+            .where('usuario_id', request.currentUser.id)
+            .whereRaw('(nome ilike ? OR telefonecelular ilike ?)', [`%${filter}%`, `%${filter}%`])
             .orderBy('nome')
             .fetch()
 
